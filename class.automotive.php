@@ -9,7 +9,7 @@
 		/*	$hostname = 'localhost';
 			$dbname = 'ecommerce';
 			$username = 'root';
-			$password = '';  */
+			$password = ''; */
 			$con = mysql_connect($hostname,$username, $password);
 		    if (!$con)
 			  {
@@ -21,34 +21,10 @@
 		}
 	}
 	
-	class main_Items{
-		public function getMainItems(){
-			$db = dbconnect::connect();
-			$query = "select * from `media_main_items`";
-			$result = mysql_query($query);
-			$arr = array();
-			while($row = mysql_fetch_assoc($result)){
-				array_push($arr,$row);
-			}			
-			return $arr;
-		}
-		
-		public function getMainItems1($start,$limit){
-			$db = dbconnect::connect();
-			$query = "select * from `media_main_items` order by Id desc LIMIT $start, $limit";
-			$result = mysql_query($query);
-			$arr = array();
-			while($row = mysql_fetch_assoc($result)){
-				array_push($arr,$row);
-			}			
-			return $arr;
-		}				
-	}
-	
 	class Items{
-		public function getItem($type){
+		public function getItem(){
 			$db = dbconnect::connect();
-			$query = "select * from `media_items` where Type = '$type' order by LikeCount desc";
+			$query = "select * from `automotive_items` order by LikeCount desc";
 			$result = mysql_query($query);
 			$arr = array();
 			while($row = mysql_fetch_assoc($result)){
@@ -57,20 +33,9 @@
 			return $arr;			
 		}			
 		
-		public function getItem1($type, $start, $limit){
+		public function getItem1($start, $limit){
 			$db = dbconnect::connect();
-			$query = "select * from `media_items` where Type = '$type' order by LikeCount desc LIMIT $start, $limit";
-			$result = mysql_query($query);
-			$arr = array();
-			while($row = mysql_fetch_assoc($result)){
-				array_push($arr,$row);
-			}			
-			return $arr;
-		}
-		
-		public function getItem2($type, $start, $limit){
-			$db = dbconnect::connect();
-			$query = "select * from `media_items` where Type = '$type' order by Rating desc LIMIT $start, $limit";
+			$query = "select * from `automotive_items` order by LikeCount desc LIMIT $start, $limit";
 			$result = mysql_query($query);
 			$arr = array();
 			while($row = mysql_fetch_assoc($result)){
@@ -84,33 +49,33 @@
 				
 		public function add($code, $rate, $uid){
 			$db = dbconnect::connect();
-			$query = "insert into `media_rating` (`Media_Id`,`Rate`,`Uid`) values('$code', '$rate', '$uid')";
+			$query = "insert into `auto_rating` (`Auto_Id`,`Rate`,`Uid`) values('$code', '$rate', '$uid')";
 			$result = mysql_query($query);
 		}
 		
 		public function update($code, $rate, $uid){
 			$db = dbconnect::connect();
-			$query = "update `media_rating` set Rate = $rate where Media_Id = $code and Uid = '$uid'";
+			$query = "update `auto_rating` set Rate = $rate where Auto_Id = $code and Uid = '$uid'";
 			$result = mysql_query($query);
 		}
 		
 		public function get($code){
 			$db = dbconnect::connect();
-			$query = "select * from `media_rating` where Media_Id = $code";
+			$query = "select * from `auto_rating` where Auto_Id = $code";
 			$result = mysql_query($query);
 			return $result;
 		}
 		
 		public function get1($code,$uid){
 			$db = dbconnect::connect();
-			$query = "select * from `media_rating` where Media_Id = $code and Uid = '$uid'";
+			$query = "select * from `auto_rating` where Auto_Id = $code and Uid = '$uid'";
 			$result = mysql_query($query);
 			return $result;
 		}
 		
 		public function check($code,$uid){
 			$db = dbconnect::connect();
-			$query = "select count(*) from `media_rating` where `Media_Id` = $code and `Uid` = '$uid'";
+			$query = "select count(*) from `auto_rating` where `Auto_Id` = $code and `Uid` = '$uid'";
 			$result = mysql_query($query);			
 			return $result;
 		}
